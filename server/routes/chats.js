@@ -6,8 +6,8 @@ let id = 1;
 let chats = [
   {
     id: id.toString(),
-    sender: "John",
-    message: "Watch youtube!",
+    sender: "Admin",
+    message: "This is the start of the chat room.",
   },
 ];
 
@@ -15,7 +15,7 @@ let chats = [
 
 // HTTP GET Method
 router.get("/", (req, res) => {
-  res.send(chats);
+  res.status(200).send(chats);
 });
 
 router.get("/:id", (req, res) => {
@@ -29,11 +29,11 @@ router.get("/:id", (req, res) => {
 
 // HTTP POST Method
 router.post("/", (req, res) => {
-  const chat = req.body;
+  const chat = req.body.data;
 
   chats.push({ id: (++id).toString(), ...chat });
 
-  res.send(`${chat.value} added to chats list`);
+  res.status(200).send(`${chat.sender}: ${chat.message} added to chats list`);
 });
 
 // HTTP DELETE Method
