@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
 
 // HTTP POST Method
 router.post("/", (req, res) => {
-  const chat = req.body.data;
+  const chat = req.body;
 
   chats.push({ id: (++id).toString(), ...chat });
 

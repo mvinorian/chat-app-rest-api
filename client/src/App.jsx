@@ -17,7 +17,9 @@ export default function App() {
       sender: user,
       message: message,
     };
-    axios.post("http://localhost:8080/chats", { data }).then(() => getChats());
+    axios
+      .post("http://localhost:8080/chats", { ...data })
+      .then(() => getChats());
   };
 
   const deleteChat = (id) => {
