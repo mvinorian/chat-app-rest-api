@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const BASE_PATH_API = "https://chat-rest-api.vercel.app/";
+
 export default function App() {
   const [state, setState] = useState("login");
   const [chats, setChats] = useState([]);
   const [user, setUser] = useState("");
 
   const getChats = () => {
-    axios.get("http://localhost:8080/chats").then((res) => {
+    axios.get(BASE_PATH_API + "chats").then((res) => {
       setChats(() => res.data);
     });
   };
@@ -17,13 +19,11 @@ export default function App() {
       sender: user,
       message: message,
     };
-    axios
-      .post("http://localhost:8080/chats", { ...data })
-      .then(() => getChats());
+    axios.post(BASE_PATH_API + "chats", { ...data }).then(() => getChats());
   };
 
   const deleteChat = (id) => {
-    axios.delete(`http://localhost:8080/chats/${id}`).then(() => getChats());
+    axios.delete(BASE_PATH_API + `chats/${id}`).then(() => getChats());
   };
 
   useEffect(() => {
