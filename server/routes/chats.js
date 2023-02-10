@@ -51,23 +51,28 @@ router.delete("/:id", (req, res) => {
     );
 });
 
-
-//HTTP PUT Method
-router.put("/:id", (req,res) => {
-  const { id: chatId} = req.params;
+// HTTP PUT Method
+router.put("/:id", (req, res) => {
+  const { id: chatId } = req.params;
   const updatedChat = req.body;
   let found = false;
   chats.forEach((chat) => {
-    if(chat.id === chatId){
+    if (chat.id === chatId) {
       chat.sender = updatedChat.sender;
       chat.message = updatedChat.message;
       found = true;
     }
-  })
+  });
   const status = found ? 200 : 404;
-  res.status(status).send(`${updatedChat.sender}'s message is updated to : ${updatedChat.message} `)
-
-
+  res
+    .status(status)
+    .send(
+      `chat with id: ${chatId} ${
+        status === 200
+          ? `updated to ${updatedChat.sender}:${updatedChat.message} `
+          : "not found"
+      }`
+    );
 });
 
 export default router;
