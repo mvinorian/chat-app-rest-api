@@ -63,14 +63,16 @@ router.put("/:id", (req, res) => {
       found = true;
     }
   });
-  const status = found ? 200 : 404;
+
+  if (!found) chats.push({ id: chatId, ...updatedChat });
+
   res
-    .status(status)
+    .status(200)
     .send(
-      `chat with id: ${chatId} ${
-        status === 200
-          ? `updated to ${updatedChat.sender}:${updatedChat.message} `
-          : "not found"
+      `${
+        found
+          ? `chat with id: ${chatId} updated to ${updatedChat.sender}: ${updatedChat.message} `
+          : `${updatedChat.sender}: ${updatedChat.message} added to chats list with id: ${chatId}`
       }`
     );
 });
